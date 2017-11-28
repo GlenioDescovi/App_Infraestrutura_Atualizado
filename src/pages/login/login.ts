@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NavController, AlertController, LoadingController, Loading, IonicPage, MenuController} from 'ionic-angular';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service"
 import { HomePage } from "../home/home";
+import {Usuario} from "../../model/Usuario-model";
 /**
  * Generated class for the LoginPage page.
  *
@@ -17,7 +18,8 @@ import { HomePage } from "../home/home";
 export class LoginPage {
 
   loading: Loading;
-  registerCredenciais = { email: '', senha: ''};
+  usuarioFormulario = new Usuario();
+  usuario: Usuario = new Usuario();
 
   constructor( public navCtrl: NavController,
                public menu: MenuController,
@@ -48,16 +50,29 @@ export class LoginPage {
     this.nav.push(HomePage);
   }
 
-  public login(){
+  public login(registerForm){
     this.showLoading();
-    this.auth.login(this.registerCredenciais).subscribe(allowed => {
+    this.auth.login(this.usuarioFormulario).subscribe(retorno => {
+      this.usuario = retorno.json();
+      console.log(retorno.json());
+      if (this.usuario.siape == this.usuarioFormulario.siape){
+
+        this.nav.setRoot(HomePage);
+
+      }else {
+        this.showError("Siape ou senha incorretos");
+        registerForm.resetForm();
+      }
+    }, error => {this.showError(error);});
+
+    /*this.auth.login(this.usuario).subscribe(allowed => {
       if(allowed){
         this.nav.setRoot(HomePage);
       }else{
-        this.showError("Email ou senha incorretos");
-        console.log("credenciais" + this.registerCredenciais.senha + this.registerCredenciais.email);
+        this.showError("Siape ou senha incorretos");
+        console.log("credenciais " + this.usuario.senha + " " + this.usuario.siape);
       }
-    }, error => {this.showError(error);});
+    }, error => {this.showError(error);});*/
   }
 
   showLoading() {

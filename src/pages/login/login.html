@@ -8,14 +8,14 @@
     <img src="assets/imagens/politecnico.PNG"/>
   </ion-col>
     <div class="login-box">
-      <form (ngSubmit)="login()" #registerForm="ngForm">
+      <form (ngSubmit)="login(registerForm)" #registerForm="ngForm">
         <ion-item>
-          <ion-label>Email</ion-label>
-          <ion-input type="text" name="email" [(ngModel)]="registerCredenciais.email" required></ion-input>
+          <ion-label>Siape</ion-label>
+          <ion-input type="number" name="siape" [(ngModel)]="usuarioFormulario.siape" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Senha</ion-label>
-          <ion-input type="password"  name="senha" [(ngModel)]="registerCredenciais.senha" required></ion-input>
+          <ion-input type="password"  name="senha" [(ngModel)]="usuarioFormulario.senha" required></ion-input>
         </ion-item>
         <ion-row>
           <ion-col class="signup-col">

@@ -2,13 +2,17 @@ export class Usuario {
   idUsuario: number;
   nome: string;
   siape: number;
-  acesso: string;
   email: string;
   senha: string;
+  nomeCompleto :string;
 
-  constructor(nome: string, email: string, idUsuario: number){
+
+  constructor(idUsuario ?: number, nome ?: string, siape ?: number, email ?: string, senha ?: string, nomeCompleto ?:string) {
+    this.idUsuario = idUsuario;
     this.nome = nome;
+    this.siape = siape;
     this.email = email;
-    this.idUsuario= idUsuario;
+    this.senha = senha;
+    this.nomeCompleto = nomeCompleto;
   }
 }
