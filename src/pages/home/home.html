@@ -1,0 +1,83 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Realizar Chamado</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form #registerForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label>Categoria do Serviço</ion-label>
+        <ion-select (ionChange)="buscarServicos();" name="idCategoriaServico" [(ngModel)]="categoriaDeServico" >
+          <ion-option *ngFor="let categoriaDeServico of categoriaDeServicos" [value]="categoriaDeServico"> {{ categoriaDeServico.nomeCategoriaServico }} </ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>Serviço Diponível</ion-label>
+        <ion-select name="idServico" [(ngModel)]="servico">
+          <ion-option *ngFor="let servico of servicos" [value]="servico"> {{ servico.nomeServico }} </ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>Prédio</ion-label>
+        <ion-select (ionChange)="buscarSalas();" name="idPredio" [(ngModel)]="predio" >
+          <ion-option *ngFor="let predio of predios" [value]="predio"> {{ predio.nomePredio }} </ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>Salas</ion-label>
+        <ion-select name="idSala" [(ngModel)]="sala">
+          <ion-option *ngFor="let sala of salas" [value]="sala"> {{ sala.nomeSala }} </ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label>Telefone/Ramal</ion-label>
+      <ion-input type="text" name="ramal" [(ngModel)]="chamado.ramal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Descrição</ion-label>
+      <ion-textarea name="descricao" [(ngModel)]="chamado.descricao" placeholder="Digite a descrição para ajudar o entendimento da solicitação..." required></ion-textarea>
+    </ion-item>
+    <ion-card>
+      <img src="{{ base64Image }}"/>
+      <ion-input type="hidden" name="foto" [(ngModel)]="base64Image"></ion-input>
+      <ion-card-content>
+      </ion-card-content>
+      <ion-row no-padding>
+        <ion-col>
+          <button ion-button clear small color="primary" icon-left (click)="takePhoto()">
+            <ion-icon name='camera'></ion-icon>
+            Câmera
+          </button>
+        </ion-col>
+        <ion-col text-center>
+          <button ion-button clear small color="primary" icon-left (click)="openGallery()">
+            <ion-icon name='albums'></ion-icon>
+            Galeria
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-row>
+      <ion-col class="signup-col">
+        <button (click)="cadastraChamado(registerForm, chamado)" ion-button color="primary" block type="ngSubmit" [disabled]="!registerForm.form.valid">Solicitar</button>
+      </ion-col>
+    </ion-row>
+  </form>
+ <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
+</ion-content>

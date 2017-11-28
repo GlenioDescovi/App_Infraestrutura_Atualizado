@@ -1,0 +1,32 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Notificações</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-header>
+    <ion-navbar>
+      <ion-title>Fique atualizado</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content padding>
+    <ion-card *ngFor="let notificacao of notificacoes">
+      <ion-card-header>
+        {{ notificacao.chamado.servico.nomeServico }}
+      </ion-card-header>
+      <ion-card-content>
+        <h3>{{ notificacao.chamado.descricao }}</h3>
+        <p>{{ notificacao.descricao }}</p>
+        <p>Data da mudança: {{ notificacao.data | date: 'dd/MM/yyyy'}}</p>
+      </ion-card-content>
+    </ion-card>
+    <h3 *ngIf="notificacoes?.length < 0">Não há notificações</h3>
+  </ion-content>
