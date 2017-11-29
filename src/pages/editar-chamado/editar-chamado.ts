@@ -135,7 +135,7 @@ export class EditarChamadoPage implements OnInit{
 
     this.showLoading();
     this.chamadoService.editarChamado(this.chamado).subscribe(retorno => {
-      if(retorno){
+      if(retorno.json()){
         formulario.resetForm();
         this.nav.setRoot(MeusChamadosPage);
         this.showMensagem("Chamado editado.", "Sucesso!");

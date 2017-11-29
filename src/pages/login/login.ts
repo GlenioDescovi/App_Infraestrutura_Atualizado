@@ -3,6 +3,8 @@ import {NavController, AlertController, LoadingController, Loading, IonicPage, M
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service"
 import { HomePage } from "../home/home";
 import {Usuario} from "../../model/Usuario-model";
+import { Storage } from '@ionic/storage';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -21,7 +23,7 @@ export class LoginPage {
   usuarioFormulario = new Usuario();
   usuario: Usuario = new Usuario();
 
-  constructor( public navCtrl: NavController,
+  constructor(public storage: Storage, public navCtrl: NavController,
                public menu: MenuController,
                private nav: NavController,
                private auth: AuthServiceProvider,
@@ -56,6 +58,9 @@ export class LoginPage {
       this.usuario = retorno.json();
       console.log(retorno.json());
       if (this.usuario.siape == this.usuarioFormulario.siape){
+
+        this.storage.set('usuarioLogado', this.usuario);
+        //window.localStorage.setItem('usuarioLogado', retorno.json());
 
         this.nav.setRoot(HomePage);
 

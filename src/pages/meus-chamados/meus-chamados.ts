@@ -56,7 +56,7 @@ export class MeusChamadosPage implements OnInit{
 
     this.showLoading();
     this.chamadoService.deletaChamado(chamado).subscribe(retorno => {
-      if(retorno){
+      if(retorno.json()){
         this.nav.setRoot(MeusChamadosPage);
         this.showMensagem("Chamado excluido.", "Sucesso!");
       }else{

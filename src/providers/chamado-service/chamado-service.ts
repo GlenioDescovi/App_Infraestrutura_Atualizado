@@ -52,19 +52,17 @@ export class ChamadoServiceProvider {
 
     return this.http.get(this.url+"chamado/chamadosDoUsuario/" + usuario.idUsuario).map(response => response.json() as Chamado).catch(error => Observable.throw(error));
   }
-  realizaChamado(chamado: Chamado): Observable<boolean> {
+  realizaChamado(chamado: Chamado) {
     console.log(chamado);
-    return this.http.post(this.url + "chamado/registrarChamado", chamado)
-      .map(res => res).catch(error => Observable.throw(error));
+    return this.http.post(this.url + "chamado/registrarChamado", chamado);
   }
-  editarChamado(chamado: Chamado): Observable<boolean>{
-    return this.http.put(this.url + "chamado/editarUmChamado", chamado)
-      .map(res => res).catch(error => Observable.throw(error))
+  editarChamado(chamado: Chamado){
+    return this.http.put(this.url + "chamado/editarUmChamado", chamado);
   }
 
-  deletaChamado(chamado: Chamado) : Observable<boolean>{
+  deletaChamado(chamado: Chamado){
     console.log("id do chamado no service: " + chamado.idChamado);
-    return this.http.delete(this.url+'chamado/excluirChamado/'+ chamado.idChamado).map(resposta => resposta).catch(erro => Observable.throw(erro));
+    return this.http.delete(this.url+'chamado/excluirChamado/'+ chamado.idChamado);
   }
 
 }

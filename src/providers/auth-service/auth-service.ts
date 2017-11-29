@@ -4,6 +4,8 @@ import 'rxjs/add/operator/map';
 import { Usuario } from "../../model/Usuario-model";
 import { Observable } from "rxjs/Observable";
 import {Http} from "@angular/http";
+import { Storage } from '@ionic/storage';
+
 
 /*
   Generated class for the AuthServiceProvider provider.
@@ -16,12 +18,10 @@ export class AuthServiceProvider {
 
   private url= "http://192.168.90.66:8080/";
 
-  constructor(public http: Http) {
+  constructor(public storage: Storage, public http: Http) {
 
   }
 
-  currentUser: Usuario;
-  usuarioSessao: Usuario;
 
 /*  public login(credenciais: Usuario) : Observable<Usuario>{
     if (credenciais.email === null || credenciais.senha === null){
@@ -42,6 +42,7 @@ export class AuthServiceProvider {
     }
   }*/
 
+  usuarioGet= new Usuario();
 
   public login(credenciais: Usuario) {
     return this.http.post(this.url+'usuario/login',credenciais);
@@ -49,12 +50,23 @@ export class AuthServiceProvider {
 
 
 
-  public getUsuarioInfo(): Usuario{
-    return this.currentUser;
+  public getUsuarioInfo(): Usuario {
+
+    //var usuario = window.localStorage.getItem('usuarioLogado');
+
+    //this.usuarioGet = this.storage.get('usuarioLogado');
+    this.storage.get('usuarioLogado').then((retorno) => {
+      this.usuarioGet = retorno;
+    });
+
+    return this.usuarioGet;
+
   }
   public logout(){
     return Observable.create(observable => {
-      this.currentUser = null;
+
+      this.storage.remove('usuarioLogado');
+      //window.localStorage.removeItem('usuarioLogado');
       observable.next(true);
       observable.complete();
     });

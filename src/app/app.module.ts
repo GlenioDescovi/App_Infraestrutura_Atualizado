@@ -15,6 +15,8 @@ import { MeusChamadosPage } from "../pages/meus-chamados/meus-chamados";
 import { EditarChamadoPage } from "../pages/editar-chamado/editar-chamado";
 import {NotificacoesPage} from "../pages/notificacoes/notificacoes";
 import { NotificacaoServiceProvider } from '../providers/notificacao-service/notificacao-service';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +32,9 @@ import { NotificacaoServiceProvider } from '../providers/notificacao-service/not
     BrowserModule,
     FormsModule,
     IonicModule.forRoot(Infraestrutura),
+    IonicStorageModule.forRoot({
+      name: '__mydb', driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

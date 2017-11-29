@@ -39,9 +39,9 @@ export class HomePage implements OnInit{
               private auth: AuthServiceProvider,
               private camera: Camera, public chamadoService: ChamadoServiceProvider,  public loadingCtrl: LoadingController) {
 
-    let info = this.auth.getUsuarioInfo();
+   /* let info = this.auth.getUsuarioInfo();
     this.username = info['nome'];
-    this.email = info['email'];
+    this.email = info['email'];*/
   }
 
   buscarCategoriaServico(): void {
@@ -126,8 +126,7 @@ export class HomePage implements OnInit{
 
      this.showLoading();
      this.chamadoService.realizaChamado(this.chamado).subscribe(retorno => {
-       if(retorno){
-
+       if(retorno.json()){
          formulario.resetForm();
          this.showMensagem("Chamado solicitado.", "Sucesso!");
        }else{
