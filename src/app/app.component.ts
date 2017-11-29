@@ -6,7 +6,6 @@ import { HomePage } from '../pages/home/home';
 import { MeusChamadosPage } from "../pages/meus-chamados/meus-chamados";
 import { EditarChamadoPage } from "../pages/editar-chamado/editar-chamado";
 import {NotificacoesPage} from "../pages/notificacoes/notificacoes";
-import {AuthServiceProvider} from "../providers/auth-service/auth-service";
 import {Storage} from "@ionic/storage";
 
 @Component({
