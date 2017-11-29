@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AlertController, Loading, LoadingController, NavController} from 'ionic-angular';
+import {AlertController, App, Loading, LoadingController, NavController} from 'ionic-angular';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ImagePicker } from "@ionic-native/image-picker";
@@ -10,6 +10,8 @@ import { Sala } from "../../model/Sala-model";
 import { CategoriaDeServico } from "../../model/CategoriaDeServico-model";
 import { Servico } from "../../model/Servico-model";
 import { Chamado } from "../../model/Chamado-model";
+import {LoginPage} from "../login/login";
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-home',
@@ -17,8 +19,8 @@ import { Chamado } from "../../model/Chamado-model";
 })
 export class HomePage implements OnInit{
   public base64Image : string;
-  username = '';
-  email = '';
+/*  username = '';
+  email = '';*/
 
   loading: Loading;
   categoriaDeServicos: CategoriaDeServico[];
@@ -33,15 +35,18 @@ export class HomePage implements OnInit{
   sala = new Sala();
   chamado = new Chamado();
 
-  constructor(public alertCtrl : AlertController,
+  constructor(public storage: Storage ,public app: App, public alertCtrl : AlertController,
               public imagePicker: ImagePicker,
               public nav: NavController,
-              private auth: AuthServiceProvider,
+              public auth: AuthServiceProvider,
               private camera: Camera, public chamadoService: ChamadoServiceProvider,  public loadingCtrl: LoadingController) {
 
    /* let info = this.auth.getUsuarioInfo();
     this.username = info['nome'];
     this.email = info['email'];*/
+
+    this.getUsuario();
+
   }
 
   buscarCategoriaServico(): void {
@@ -70,10 +75,8 @@ export class HomePage implements OnInit{
     console.log('ionViewDidLoad TakePicture');
   }
   public logout() {
-
-    this.auth.logout().subscribe(succ => {
-      this.nav.setRoot('LoginPage')
-    });
+    this.auth.logout();
+    this.app.getRootNav().setRoot(LoginPage);
   }
 
   takePhoto() {
@@ -154,6 +157,13 @@ export class HomePage implements OnInit{
     });
     this.loading.present();
   }
+
+  getUsuario(){
+    this.auth.getUsuarioInfo();
+    console.log("usuario service: " + this.auth.getUsuarioInfo().nomeCompleto);
+  }
+
+
 
   ngOnInit(){
     this.buscarCategoriaServico();

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavController, AlertController, LoadingController, Loading, IonicPage, MenuController} from 'ionic-angular';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service"
 import { HomePage } from "../home/home";
@@ -17,7 +17,9 @@ import { Storage } from '@ionic/storage';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage implements OnInit{
+  ngOnInit(): void {
+  }
 
   loading: Loading;
   usuarioFormulario = new Usuario();
@@ -56,10 +58,19 @@ export class LoginPage {
     this.showLoading();
     this.auth.login(this.usuarioFormulario).subscribe(retorno => {
       this.usuario = retorno.json();
-      console.log(retorno.json());
       if (this.usuario.siape == this.usuarioFormulario.siape){
 
+/*        this.storage.clear();
+        this.storage.ready();*/
+        this.storage.remove('usuarioLogado');
+        this.storage.ready().then(() => {
+          this.storage.set('usuarioLogado', this.usuario);
+        });
+
+/*
         this.storage.set('usuarioLogado', this.usuario);
+*/
+
         //window.localStorage.setItem('usuarioLogado', retorno.json());
 
         this.nav.setRoot(HomePage);
@@ -96,6 +107,9 @@ export class LoginPage {
       buttons: ['OK']
     });
     alert.present(prompt);
+  }
+  getUsuario(){
+    this.auth.getUsuarioInfo();
   }
 
   ionViewDidLoad() {

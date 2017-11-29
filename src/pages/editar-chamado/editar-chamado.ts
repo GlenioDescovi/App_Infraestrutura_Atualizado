@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit} from '@angular/core';
-import {AlertController, IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, App, IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {Chamado} from "../../model/Chamado-model";
 import {Observable} from "rxjs/Observable";
@@ -12,6 +12,7 @@ import {ChamadoServiceProvider} from "../../providers/chamado-service/chamado-se
 import {ImagePicker} from "@ionic-native/image-picker";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import 'rxjs/add/operator/map';
+import {LoginPage} from "../login/login";
 
 /**
  * Generated class for the EditarChamadoPage page.
@@ -42,7 +43,7 @@ export class EditarChamadoPage implements OnInit{
   public base64Image : string;
 
 
-  constructor(public nav: NavController, public navParams: NavParams, private auth: AuthServiceProvider,
+  constructor(public app: App, public nav: NavController, public navParams: NavParams, private auth: AuthServiceProvider,
               public alertCtrl : AlertController,
               public imagePicker: ImagePicker,
               private camera: Camera, public chamadoService: ChamadoServiceProvider,  public loadingCtrl: LoadingController) {
@@ -81,9 +82,8 @@ export class EditarChamadoPage implements OnInit{
   }
   public logout() {
 
-    this.auth.logout().subscribe(succ => {
-      this.nav.setRoot('LoginPage')
-    });
+    this.auth.logout();
+    this.app.getRootNav().setRoot(LoginPage);
   }
 
   takePhoto() {

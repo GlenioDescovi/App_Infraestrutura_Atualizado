@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 //import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Usuario } from "../../model/Usuario-model";
 import { Observable } from "rxjs/Observable";
 import {Http} from "@angular/http";
 import { Storage } from '@ionic/storage';
+import { App } from "ionic-angular";
+import {LoginPage} from "../../pages/login/login";
 
 
 /*
@@ -14,11 +16,15 @@ import { Storage } from '@ionic/storage';
   and Angular DI.
 */
 @Injectable()
-export class AuthServiceProvider {
+export class AuthServiceProvider implements OnInit{
+  ngOnInit(): void {
+
+
+  }
 
   private url= "http://192.168.90.66:8080/";
 
-  constructor(public storage: Storage, public http: Http) {
+  constructor(public app: App, public storage: Storage, public http: Http) {
 
   }
 
@@ -52,9 +58,6 @@ export class AuthServiceProvider {
 
   public getUsuarioInfo(): Usuario {
 
-    //var usuario = window.localStorage.getItem('usuarioLogado');
-
-    //this.usuarioGet = this.storage.get('usuarioLogado');
     this.storage.get('usuarioLogado').then((retorno) => {
       this.usuarioGet = retorno;
     });
@@ -63,13 +66,13 @@ export class AuthServiceProvider {
 
   }
   public logout(){
-    return Observable.create(observable => {
 
       this.storage.remove('usuarioLogado');
+      this.storage.clear();
+    this.storage.set('usuarioLogado', 'null');
+
       //window.localStorage.removeItem('usuarioLogado');
-      observable.next(true);
-      observable.complete();
-    });
+
   }
 
 }

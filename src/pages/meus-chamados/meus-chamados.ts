@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, App, IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
 import { Chamado } from "../../model/Chamado-model";
 import { ChamadoServiceProvider } from "../../providers/chamado-service/chamado-service";
@@ -9,6 +9,8 @@ import { Predio } from "../../model/Predio-model";
 import { Servico } from "../../model/Servico-model";
 import { CategoriaDeServico } from "../../model/CategoriaDeServico-model";
 import {EditarChamadoPage} from "../editar-chamado/editar-chamado";
+import {LoginPage} from "../login/login";
+import {Usuario} from "../../model/Usuario-model";
 
 /**
  * Generated class for the MeusChamadosPage page.
@@ -33,9 +35,12 @@ export class MeusChamadosPage implements OnInit{
   loading: Loading;
 
 
-  constructor(public loadingCtrl: LoadingController, public alertCtrl : AlertController, public nav: NavController, public navParams: NavParams, private auth: AuthServiceProvider, public chamadoService: ChamadoServiceProvider) {
+  constructor(public app: App, public loadingCtrl: LoadingController, public alertCtrl : AlertController, public nav: NavController, public navParams: NavParams, private auth: AuthServiceProvider, public chamadoService: ChamadoServiceProvider) {
+
 
   }
+
+  usuario = new Usuario();
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MeusChamadosPage');
@@ -43,7 +48,9 @@ export class MeusChamadosPage implements OnInit{
 
   buscaMeusChamados(): void{
 
-    this.chamadoService.getMeusChamados(this.auth.getUsuarioInfo()).subscribe(meusChamados => {this.chamados = meusChamados});
+    this.usuario = this.auth.getUsuarioInfo();
+
+    this.chamadoService.getMeusChamados(this.usuario).subscribe(meusChamados => {this.chamados = meusChamados});
 
   }
   editando(chamado){
@@ -107,12 +114,13 @@ export class MeusChamadosPage implements OnInit{
   }
 
   public logout() {
-    this.auth.logout().subscribe(succ => {
-      this.nav.setRoot('LoginPage')
-    });
+    this.auth.logout();
+    this.app.getRootNav().setRoot(LoginPage);
   }
   ngOnInit(){
-    this.buscaMeusChamados();
+
+      this.buscaMeusChamados();
+
   }
 
 }

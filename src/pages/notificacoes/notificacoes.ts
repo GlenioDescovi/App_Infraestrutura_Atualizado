@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController, IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, App, IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {Notificacao} from "../../model/Notificacao-model";
 import {NotificacaoServiceProvider} from "../../providers/notificacao-service/notificacao-service";
+import {LoginPage} from "../login/login";
 
 /**
  * Generated class for the NotificacoesPage page.
@@ -22,13 +23,12 @@ export class NotificacoesPage implements OnInit{
   notificacao= new Notificacao();
   notificacoes: Notificacao[];
 
-  constructor(public auth: AuthServiceProvider,public notificacaoService: NotificacaoServiceProvider , public nav: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public alertCtrl : AlertController) {
+  constructor(public app: App, public auth: AuthServiceProvider,public notificacaoService: NotificacaoServiceProvider , public nav: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public alertCtrl : AlertController) {
   }
   public logout() {
 
-    this.auth.logout().subscribe(succ => {
-      this.nav.setRoot('LoginPage')
-    });
+    this.auth.logout();
+    this.app.getRootNav().setRoot(LoginPage);
   }
 
   buscaMinhasNotificacoes(): void{
@@ -42,6 +42,7 @@ export class NotificacoesPage implements OnInit{
   }
   ngOnInit(){
 
+    //this.auth.getUsuarioInfo();
     this.buscaMinhasNotificacoes();
 
   }
