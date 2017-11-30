@@ -22,7 +22,8 @@ export class AuthServiceProvider implements OnInit{
 
   }
 
-  private url= "http://192.168.90.66:8080/";
+  //private url= "http://192.168.90.66:8080/";
+  private  url="http://192.168.1.103:8080/";
 
   constructor(public app: App, public storage: Storage, public http: Http) {
 

@@ -58,7 +58,7 @@
     </ion-list>
     <ion-item>
       <ion-label>Telefone/Ramal</ion-label>
-      <ion-input type="text" name="ramal" [(ngModel)]="chamado.ramal"></ion-input>
+      <ion-input type="number" name="ramal" [(ngModel)]="chamado.ramal"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Descrição</ion-label>
@@ -86,7 +86,7 @@
     </ion-card>
     <ion-row>
       <ion-col class="signup-col">
-        <button (click)="enviarForm(registerForm, chamado)" ion-button color="primary" block type="ngSubmit" [disabled]="!registerForm.form.valid">Solicitar</button>
+        <button (click)="enviarForm(registerForm, chamado)" ion-button color="primary" block type="ngSubmit" [disabled]="!registerForm.form.valid">Salvar</button>
       </ion-col>
     </ion-row>
   </form>
