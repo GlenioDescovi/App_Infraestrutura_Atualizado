@@ -27,7 +27,7 @@
         <p>{{ notificacao.descricao }}</p>
         <p>Data da mudança: {{ notificacao.data | date: 'dd/MM/yyyy'}}</p>
       </ion-card-content>
-      <h3 *ngIf="notificacoes?.length  <= 0"> Não há notificações</h3>
     </ion-card>
+    <h3 *ngIf="notificacoes?.length  <= 0">Você não tem notificações</h3>
 
   </ion-content>

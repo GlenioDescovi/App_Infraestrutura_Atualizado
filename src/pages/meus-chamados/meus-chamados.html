@@ -32,7 +32,7 @@
 
           <button  ion-button color="primary" [disabled]="chamado.statusChamado.idStatus != 1" (click)="showPrompt(chamado)" block type="submit">Opções</button>
         </ion-card-content>
-        <h3 *ngIf="chamados?.length  <= 0"> Não há chamados</h3>
       </ion-card>
     </form>
+    <h3 *ngIf="chamados?.length  <= 0">Não há chamados solicitados</h3>
   </ion-content>
