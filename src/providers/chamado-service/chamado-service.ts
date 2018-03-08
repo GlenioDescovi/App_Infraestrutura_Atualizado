@@ -24,7 +24,7 @@ export class ChamadoServiceProvider {
 
   //private url= "http://192.168.83.187:8181/backend/";
   //private url= "http://192.168.15.8:8181/backend/";
-  private url= "http://192.168.90.66:8080/";
+  private  url="http://192.168.90.103:9080/infraestruturaBackend/";
   //private  url="http://192.168.1.103:8080/";
   constructor(public http: Http) {
 

@@ -27,8 +27,9 @@
           <p>Predio: {{ chamado.predio.nomePredio }}</p>
           <p>sala: {{ chamado.sala.nomeSala }}</p>
           <p>status: {{ chamado.statusChamado.nomeStatus }}</p>
-          <p *ngIf="chamado.detalhamento != null">Motivo de ser cancelado: {{ chamado.detalhamento }}</p>
+          <p *ngIf="chamado.detalhamento != null">Detalhamento: {{ chamado.detalhamento }}</p>
           <p *ngIf="chamado.numeroProinfra != null">Numero da proinfra: {{ chamado.numeroProinfra }} </p>
+
 
           <button  ion-button color="primary" [disabled]="chamado.statusChamado.idStatus != 1" (click)="showPrompt(chamado)" block type="submit">Opções</button>
         </ion-card-content>
