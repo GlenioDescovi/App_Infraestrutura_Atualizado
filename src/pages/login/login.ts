@@ -36,18 +36,12 @@ export class LoginPage implements OnInit{
 
   ionViewDidEnter() {
     this.menu.swipeEnable(false);
-
-    // If you have more than one side menu, use the id like below
-    // this.menu.swipeEnable(false, 'menu1');
   }
   ionViewDidLeave() {
-    // don't forget to return the swipe to normal, else all the pages won't be swiping to open menu
+
     this.menu.swipeEnable(true);
-    // If you have more than one side menu, use the id like below
-    // this.menu.swipeEnable(true, 'menu1');
+
   }
-
-
 
   // desse jeito se chama uma pagina
   public createAccount() {
@@ -60,18 +54,10 @@ export class LoginPage implements OnInit{
       this.usuario = retorno.json();
       if (this.usuario.siape == this.usuarioFormulario.siape){
 
-/*        this.storage.clear();
-        this.storage.ready();*/
         this.storage.remove('usuarioLogado');
         this.storage.ready().then(() => {
           this.storage.set('usuarioLogado', this.usuario);
         });
-
-/*
-        this.storage.set('usuarioLogado', this.usuario);
-*/
-
-        //window.localStorage.setItem('usuarioLogado', retorno.json());
 
         this.nav.setRoot(HomePage);
 
@@ -81,14 +67,6 @@ export class LoginPage implements OnInit{
       }
     }, error => {this.showError(error);});
 
-    /*this.auth.login(this.usuario).subscribe(allowed => {
-      if(allowed){
-        this.nav.setRoot(HomePage);
-      }else{
-        this.showError("Siape ou senha incorretos");
-        console.log("credenciais " + this.usuario.senha + " " + this.usuario.siape);
-      }
-    }, error => {this.showError(error);});*/
   }
 
   showLoading() {

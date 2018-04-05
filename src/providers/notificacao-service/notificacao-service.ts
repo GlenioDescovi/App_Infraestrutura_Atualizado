@@ -14,8 +14,8 @@ import {Notificacao} from "../../model/Notificacao-model";
 @Injectable()
 export class NotificacaoServiceProvider {
 
-  //private url= "http://192.168.90.66:8080/";
-  private  url="http://192.168.90.103:9080/infraestruturaBackend/";
+  private  url="http://localhost:8181/";
+  //private  url="http://192.168.90.103:9080/infraestruturaBackend/";
 
   constructor(public http: Http) {
     console.log('Hello NotificacaoServiceProvider Provider');
